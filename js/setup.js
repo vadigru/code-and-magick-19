@@ -4,17 +4,13 @@ var WIZARD_SURNAMES = ['да Марья', 'Верон', 'Мирабелла', '�
 var COAT_COLORS = ['rgb(101, 137, 164)', 'rgb(241, 43, 107)', 'rgb(146, 100, 161)', 'rgb(56, 159, 117)', 'rgb(215, 210, 55)', 'rgb(0, 0, 0)'];
 var EYE_COLORS = ['black', 'red', 'blue', 'yellow', 'green'];
 var WIZARDS_COUNT = 4;
-var setupWindow = document.querySelector('.setup');
-var similarList = setupWindow.querySelector('.setup-similar-list');
-var data = [];
-
-setupWindow.classList.remove('hidden');
 
 var getRandom = function (array) {
   return array[Math.floor(Math.random() * array.length)];
 };
 
 var generateData = function (count) {
+  var data = [];
   for (var i = 0; i < count; i++) {
     data[i] = {
       name: getRandom(WIZARD_NAMES) + ' ' + getRandom(WIZARD_SURNAMES),
@@ -24,8 +20,6 @@ var generateData = function (count) {
   }
   return data;
 };
-
-generateData(WIZARDS_COUNT);
 
 var renderWizards = function (obj) {
   var template = document.querySelector('#similar-wizard-template').content.querySelector('.setup-similar-item');
@@ -44,6 +38,13 @@ var buildFragment = function (array) {
   return fragment;
 };
 
-similarList.appendChild(buildFragment(data));
-setupWindow.querySelector('.setup-similar').classList.remove('hidden');
+var showSetup = function () {
+  var setupWindow = document.querySelector('.setup');
+  var similarWizards = setupWindow.querySelector('.setup-similar-list');
+  var similarWizardsBlock = setupWindow.querySelector('.setup-similar');
+  similarWizards.appendChild(buildFragment(generateData(WIZARDS_COUNT)));
+  setupWindow.classList.remove('hidden');
+  similarWizardsBlock.classList.remove('hidden');
+};
 
+showSetup();
