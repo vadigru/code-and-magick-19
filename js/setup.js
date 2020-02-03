@@ -5,12 +5,17 @@ var COAT_COLORS = ['rgb(101, 137, 164)', 'rgb(241, 43, 107)', 'rgb(146, 100, 161
 var EYE_COLORS = ['black', 'red', 'blue', 'yellow', 'green'];
 var FIREBALL_COLORS = ['#ee4830', '#30a8ee', '#5ce6c0', '#e848d5', '#e6e848'];
 var WIZARDS_COUNT = 4;
-var ENTER = 'Enter';
-var ESC = 'Escape';
-var setupWindow = document.querySelector('.setup');
 var buttonSetupOpen = document.querySelector('.setup-open');
+var setupWindow = document.querySelector('.setup');
 var setupCharacter = setupWindow.querySelector('.setup-player');
+var fireball = setupCharacter.querySelector('.setup-fireball-wrap');
+var wizardEyes = setupCharacter.querySelector('.wizard-eyes');
+var wizardCoat = setupCharacter.querySelector('.setup-wizard .wizard-coat');
 
+var KeyCode = {
+  ENTER: 'Enter',
+  ESC: 'Escape'
+};
 
 var getRandom = function (array) {
   return array[Math.floor(Math.random() * array.length)];
@@ -59,73 +64,74 @@ var popupOpen = function () {
   var setupName = setupWindow.querySelector('.setup-user-name');
   var buttonSetupClose = setupWindow.querySelector('.setup-close');
   setupWindow.classList.remove('hidden');
-  buttonSetupClose.addEventListener('click', onClickClose);
-  buttonSetupClose.addEventListener('keydown', onEnterClose);
-  document.addEventListener('keydown', onEscClose);
+  fireball.addEventListener('click', onFireballClick);
+  wizardEyes.addEventListener('click', onEyesClick);
+  wizardCoat.addEventListener('click', onCoatClick);
+  buttonSetupClose.addEventListener('click', onSetupClickClose);
+  buttonSetupClose.addEventListener('keydown', onSetupEnterPressClose);
+  document.addEventListener('keydown', onSetupEscPress);
   setupName.addEventListener('focus', function () {
-    document.removeEventListener('keydown', onEscClose);
+    document.removeEventListener('keydown', onSetupEscPress);
   });
   setupName.addEventListener('blur', function () {
-    document.addEventListener('keydown', onEscClose);
+    document.addEventListener('keydown', onSetupEscPress);
   });
 };
 
 var popupClose = function () {
   setupWindow.classList.add('hidden');
-  document.removeEventListener('keydown', onEscClose);
+  document.removeEventListener('keydown', onSetupEscPress);
 };
 
-var onClickOpen = function () {
+var onSetupClickOpen = function () {
   popupOpen();
 };
 
-var onClickClose = function () {
+var onSetupClickClose = function () {
   popupClose();
 };
 
-var onEnterOpen = function (evt) {
-  if (evt.key === ENTER) {
+var onSetupEnterPressOpen = function (evt) {
+  if (evt.key === KeyCode.ENTER) {
     popupOpen();
   }
 };
 
-var onEnterClose = function (evt) {
-  if (evt.key === ENTER) {
+var onSetupEnterPressClose = function (evt) {
+  if (evt.key === KeyCode.ENTER) {
     popupClose();
   }
 };
 
-var onEscClose = function (evt) {
-  if (evt.key === ESC) {
+var onSetupEscPress = function (evt) {
+  if (evt.key === KeyCode.ESC) {
     popupClose();
   }
 };
 
-var onClickChangeColor = function (evt) {
-  var target = evt.target;
-  if (target.classList.contains('setup-fireball')) {
-    var fireball = setupCharacter.querySelector('.setup-fireball-wrap');
-    var fireballInput = fireball.querySelector('input[name="fireball-color"]');
-    var fireballColor = getRandom(FIREBALL_COLORS);
-    fireball.style.background = fireballColor;
-    fireballInput.value = fireballColor;
-  }
-  if (target.classList.contains('wizard-eyes')) {
-    var eyes = setupCharacter.querySelector('.wizard-eyes');
-    var eyesInput = setupCharacter.querySelector('input[name="eyes-color"]');
-    var eyesColor = getRandom(EYE_COLORS);
-    eyes.style.fill = eyesColor;
-    eyesInput.value = eyesColor;
-  }
-  if (target.classList.contains('wizard-coat')) {
-    var coat = setupCharacter.querySelector('.setup-wizard .wizard-coat');
-    var coatInput = setupCharacter.querySelector('input[name="coat-color"]');
-    var coatColor = getRandom(COAT_COLORS);
-    coat.style.fill = coatColor;
-    coatInput.value = coatColor;
-  }
+var onFireballClick = function (evt) {
+  var target = evt.currentTarget;
+  var fireballInput = fireball.querySelector('input[name="fireball-color"]');
+  var fireballColor = getRandom(FIREBALL_COLORS);
+  target.style.background = fireballColor;
+  fireballInput.value = fireballColor;
 };
 
-buttonSetupOpen.addEventListener('click', onClickOpen);
-buttonSetupOpen.addEventListener('keydown', onEnterOpen);
-setupCharacter.addEventListener('click', onClickChangeColor);
+var onEyesClick = function (evt) {
+  var target = evt.currentTarget;
+  var eyesInput = setupCharacter.querySelector('input[name="eyes-color"]');
+  var eyesColor = getRandom(EYE_COLORS);
+  target.style.fill = eyesColor;
+  eyesInput.value = eyesColor;
+};
+
+var onCoatClick = function (evt) {
+  var target = evt.currentTarget;
+  var coatInput = setupCharacter.querySelector('input[name="coat-color"]');
+  var coatColor = getRandom(COAT_COLORS);
+  target.style.fill = coatColor;
+  coatInput.value = coatColor;
+};
+
+buttonSetupOpen.addEventListener('click', onSetupClickOpen);
+buttonSetupOpen.addEventListener('keydown', onSetupEnterPressOpen);
