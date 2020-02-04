@@ -1,4 +1,8 @@
 'use strict';
+var KeyCode = {
+  ENTER: 'Enter',
+  ESC: 'Escape'
+};
 var WIZARD_NAMES = ['Иван', 'Хуан Себастьян', 'Мария', 'Кристоф', 'Виктор', 'Юлия', 'Люпита', 'Вашингтон'];
 var WIZARD_SURNAMES = ['да Марья', 'Верон', 'Мирабелла', 'Вальц', 'Онопко', 'Топольницкая', 'Нионго', 'Ирвинг'];
 var COAT_COLORS = ['rgb(101, 137, 164)', 'rgb(241, 43, 107)', 'rgb(146, 100, 161)', 'rgb(56, 159, 117)', 'rgb(215, 210, 55)', 'rgb(0, 0, 0)'];
@@ -11,11 +15,6 @@ var setupCharacter = setupWindow.querySelector('.setup-player');
 var fireball = setupCharacter.querySelector('.setup-fireball-wrap');
 var wizardEyes = setupCharacter.querySelector('.wizard-eyes');
 var wizardCoat = setupCharacter.querySelector('.setup-wizard .wizard-coat');
-
-var KeyCode = {
-  ENTER: 'Enter',
-  ESC: 'Escape'
-};
 
 var getRandom = function (array) {
   return array[Math.floor(Math.random() * array.length)];
@@ -64,7 +63,7 @@ var popupOpen = function () {
   var setupName = setupWindow.querySelector('.setup-user-name');
   var buttonSetupClose = setupWindow.querySelector('.setup-close');
   setupWindow.classList.remove('hidden');
-  fireball.addEventListener('click', onFireballClick);
+  fireball.addEventListener('click', onFireballClick, true);
   wizardEyes.addEventListener('click', onEyesClick);
   wizardCoat.addEventListener('click', onCoatClick);
   buttonSetupClose.addEventListener('click', onSetupClickClose);
@@ -118,7 +117,7 @@ var onFireballClick = function (evt) {
 };
 
 var onEyesClick = function (evt) {
-  var target = evt.currentTarget;
+  var target = evt.target;
   var eyesInput = setupCharacter.querySelector('input[name="eyes-color"]');
   var eyesColor = getRandom(EYE_COLORS);
   target.style.fill = eyesColor;
@@ -126,7 +125,7 @@ var onEyesClick = function (evt) {
 };
 
 var onCoatClick = function (evt) {
-  var target = evt.currentTarget;
+  var target = evt.target;
   var coatInput = setupCharacter.querySelector('input[name="coat-color"]');
   var coatColor = getRandom(COAT_COLORS);
   target.style.fill = coatColor;
