@@ -63,7 +63,7 @@ var popupOpen = function () {
   var setupName = setupWindow.querySelector('.setup-user-name');
   var buttonSetupClose = setupWindow.querySelector('.setup-close');
   setupWindow.classList.remove('hidden');
-  fireball.addEventListener('click', onFireballClick, true);
+  fireball.addEventListener('click', onFireballClick);
   wizardEyes.addEventListener('click', onEyesClick);
   wizardCoat.addEventListener('click', onCoatClick);
   buttonSetupClose.addEventListener('click', onSetupClickClose);
