@@ -27,6 +27,8 @@
 
   var popupClose = function () {
     setupWindow.classList.add('hidden');
+    setupWindow.style.left = '';
+    setupWindow.style.top = '';
     document.removeEventListener('keydown', onSetupEscPress);
   };
 
