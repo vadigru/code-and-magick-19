@@ -6,7 +6,6 @@
   var STATUS_OK = 200;
 
   // success/error handling function ------------------------------------------
-
   var setup = function (onLoad, onError) {
     var xhr = new XMLHttpRequest();
     xhr.responseType = 'json';
@@ -31,7 +30,6 @@
   };
 
   // data load from server ----------------------------------------------------
-
   var load = function (onLoad, onError) {
     var xhr = setup(onLoad, onError);
     xhr.open('GET', LOAD_URL);
@@ -39,7 +37,6 @@
   };
 
   // data send to server ------------------------------------------------------
-
   var save = function (data, onLoad, onError) {
     var xhr = setup(onLoad, onError);
     xhr.open('POST', SAVE_URL);

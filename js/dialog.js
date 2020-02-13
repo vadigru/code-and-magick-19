@@ -75,8 +75,8 @@
     target.style.fill = coatColor;
     coatInput.value = coatColor;
   };
-  // send formdata and success error handler ----------------------------------
 
+  // send formdata and success error handler ----------------------------------
   var form = document.querySelector('.setup-wizard-form');
 
   var onSubmitSuccessHandle = function () {
@@ -84,27 +84,8 @@
   };
 
   var onSubmitErrorHandle = function () {
-    var node = document.createElement('div');
-    node.style = 'z-index: 100; margin: 0 auto; text-align: center; background-color: white; color: red; line-height: 50px; padding: 25px; box-shadow: 10px 10px 0 0 rgba(0, 0, 0, 0.8); cursor: pointer;';
-    node.style.position = 'absolute';
-    node.style.left = '30%';
-    node.style.right = '30%';
-    node.style.top = '30%';
-    node.style.fontSize = '30px';
-    node.classList.add('modal-error');
-
-    node.textContent = 'При отправке данных произошла ошибка.';
-    document.body.insertAdjacentElement('afterbegin', node);
-
-    var nodeIn = document.createElement('div');
-    nodeIn.style = 'z-index: 101; color: black; cursor: pointer;';
-    nodeIn.style.position = 'absolute';
-    nodeIn.style.right = '10px';
-    nodeIn.style.top = '0';
-    nodeIn.style.fontSize = '16px';
-    nodeIn.classList.add('modal-error__close');
-    nodeIn.textContent = 'закрыть';
-    node.insertAdjacentElement('afterbegin', nodeIn);
+    var errorMessage = 'При отправке данных произошла ошибка.';
+    window.util.onErrorHandler(errorMessage);
   };
 
   form.addEventListener('submit', function (evt) {
@@ -113,12 +94,11 @@
   });
 
   // close error dialog window ------------------------------------------------
-
   document.addEventListener('click', function (evt) {
     var target = evt.target;
-    var div = document.querySelector('.modal-error');
+    var modal = document.querySelector('.modal-error');
     if (target.className === 'modal-error' || target.className === 'modal-error__close') {
-      document.body.removeChild(div);
+      modal.classList.add('modal-error--hidden');
     }
   });
 

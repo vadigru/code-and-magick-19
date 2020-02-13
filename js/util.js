@@ -14,22 +14,28 @@ window.util = (function () {
         action();
       }
     },
-    getRandomValue: function (min, array) {
-      var max = array;
-      return Array.isArray(array) === true ?
-        array[Math.floor(Math.random() * max.length)] :
+    getRandomValue: function (min, arr) {
+      var max = arr;
+      return Array.isArray(arr) ?
+        arr[Math.floor(Math.random() * max.length)] :
         Math.floor(min + Math.random() * (max + 1 - min));
     },
-    shuffleArray: function (array) {
+    shuffleArray: function (arr) {
       var j;
       var k;
-      for (var i = array.length - 1; i > 0; i--) {
+      for (var i = arr.length - 1; i > 0; i--) {
         j = window.util.getRandomValue(0, i);
-        k = array[i];
-        array[i] = array[j];
-        array[j] = k;
+        k = arr[i];
+        arr[i] = arr[j];
+        arr[j] = k;
       }
-      return array;
+      return arr;
+    },
+    onErrorHandler: function (message) {
+      var modal = document.querySelector('.modal-error');
+      var modalText = document.querySelector('.modal-error__text');
+      modal.classList.remove('modal-error--hidden');
+      modalText.textContent = message;
     }
   };
 })();
