@@ -30,7 +30,7 @@
   };
 
   var onLoadErrorHandle = function (errorMessage) {
-    window.util.onErrorHandler(errorMessage);
+    window.util.showErrorModal(errorMessage);
   };
 
   window.backend.load(onLoadSuccessHandle, onLoadErrorHandle);

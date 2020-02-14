@@ -31,11 +31,18 @@ window.util = (function () {
       }
       return arr;
     },
-    onErrorHandler: function (message) {
+    showErrorModal: function (message) {
       var modal = document.querySelector('.modal-error');
       var modalText = document.querySelector('.modal-error__text');
       modal.classList.remove('modal-error--hidden');
       modalText.textContent = message;
+    },
+    hideErrorModal: function (evt) {
+      var target = evt.target;
+      var modal = document.querySelector('.modal-error');
+      if (target.classList.contains('modal-error') || target.classList.contains('modal-error__close')) {
+        modal.classList.add('modal-error--hidden');
+      }
     }
   };
 })();

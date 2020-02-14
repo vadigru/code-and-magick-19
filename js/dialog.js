@@ -85,7 +85,7 @@
 
   var onSubmitErrorHandle = function () {
     var errorMessage = 'При отправке данных произошла ошибка.';
-    window.util.onErrorHandler(errorMessage);
+    window.util.showErrorModal(errorMessage);
   };
 
   form.addEventListener('submit', function (evt) {
@@ -95,11 +95,7 @@
 
   // close error dialog window ------------------------------------------------
   document.addEventListener('click', function (evt) {
-    var target = evt.target;
-    var modal = document.querySelector('.modal-error');
-    if (target.className === 'modal-error' || target.className === 'modal-error__close') {
-      modal.classList.add('modal-error--hidden');
-    }
+    window.util.hideErrorModal(evt);
   });
 
   buttonSetupOpen.addEventListener('click', onSetupClickOpen);
