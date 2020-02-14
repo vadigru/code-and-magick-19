@@ -14,8 +14,35 @@ window.util = (function () {
         action();
       }
     },
-    getRandom: function (array) {
-      return array[Math.floor(Math.random() * array.length)];
+    getRandomValue: function (min, arr) {
+      var max = arr;
+      return Array.isArray(arr) ?
+        arr[Math.floor(Math.random() * max.length)] :
+        Math.floor(min + Math.random() * (max + 1 - min));
+    },
+    shuffleArray: function (arr) {
+      var j;
+      var k;
+      for (var i = arr.length - 1; i > 0; i--) {
+        j = window.util.getRandomValue(0, i);
+        k = arr[i];
+        arr[i] = arr[j];
+        arr[j] = k;
+      }
+      return arr;
+    },
+    showErrorModal: function (message) {
+      var modal = document.querySelector('.modal-error');
+      var modalText = document.querySelector('.modal-error__text');
+      modal.classList.remove('modal-error--hidden');
+      modalText.textContent = message;
+    },
+    hideErrorModal: function (evt) {
+      var target = evt.target;
+      var modal = document.querySelector('.modal-error');
+      if (target.classList.contains('modal-error') || target.classList.contains('modal-error__close')) {
+        modal.classList.add('modal-error--hidden');
+      }
     }
   };
 })();

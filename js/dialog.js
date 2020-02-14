@@ -55,7 +55,7 @@
   var onFireballClick = function (evt) {
     var target = evt.currentTarget;
     var fireballInput = fireball.querySelector('input[name="fireball-color"]');
-    var fireballColor = window.util.getRandom(window.const.FIREBALL_COLORS);
+    var fireballColor = window.util.getRandomValue(0, window.const.FIREBALL_COLORS);
     target.style.background = fireballColor;
     fireballInput.value = fireballColor;
   };
@@ -63,7 +63,7 @@
   var onEyesClick = function (evt) {
     var target = evt.target;
     var eyesInput = setupCharacter.querySelector('input[name="eyes-color"]');
-    var eyesColor = window.util.getRandom(window.const.EYE_COLORS);
+    var eyesColor = window.util.getRandomValue(0, window.const.EYE_COLORS);
     target.style.fill = eyesColor;
     eyesInput.value = eyesColor;
   };
@@ -71,10 +71,32 @@
   var onCoatClick = function (evt) {
     var target = evt.target;
     var coatInput = setupCharacter.querySelector('input[name="coat-color"]');
-    var coatColor = window.util.getRandom(window.const.COAT_COLORS);
+    var coatColor = window.util.getRandomValue(0, window.const.COAT_COLORS);
     target.style.fill = coatColor;
     coatInput.value = coatColor;
   };
+
+  // send formdata and success error handler ----------------------------------
+  var form = document.querySelector('.setup-wizard-form');
+
+  var onSubmitSuccessHandle = function () {
+    form.classList.add('hidden');
+  };
+
+  var onSubmitErrorHandle = function () {
+    var errorMessage = 'При отправке данных произошла ошибка.';
+    window.util.showErrorModal(errorMessage);
+  };
+
+  form.addEventListener('submit', function (evt) {
+    window.backend.save(new FormData(form), onSubmitSuccessHandle, onSubmitErrorHandle);
+    evt.preventDefault();
+  });
+
+  // close error dialog window ------------------------------------------------
+  document.addEventListener('click', function (evt) {
+    window.util.hideErrorModal(evt);
+  });
 
   buttonSetupOpen.addEventListener('click', onSetupClickOpen);
   buttonSetupOpen.addEventListener('keydown', onSetupEnterPressOpen);
