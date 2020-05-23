@@ -1,4 +1,4 @@
-# Учебный проект «Код и Магия» [![Build status][travis-image]][travis-url]
+# Учебный проект «Code and Magic» [![Build status][travis-image]][travis-url]
 
 * Студент: [Vadim Grunenko](https://up.htmlacademy.ru/javascript/19/user/507341).
 * Наставник: [Ольга Поликашина](https://htmlacademy.ru/profile/id890283).
